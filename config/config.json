@@ -1,11 +1,5 @@
 {
-  "development": {
-    "username": "root",
-    "password": "root",
-    "database": "game_changer_db",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
+  "development": { "use_env_variable": "LOCAL_DB" },
   "test": {
     "username": "root",
     "password": null,

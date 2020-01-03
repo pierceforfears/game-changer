@@ -6,3 +6,5 @@ CREATE DATABASE game_changer_db;
 USE game_changer_db;
 
 SHOW tables;
+
+SELECT * FROM users;

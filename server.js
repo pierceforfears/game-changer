@@ -1,6 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 //const routes = require("./routes");
+const session = require("express-session");
+const passport = require("passport");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const db = require("./models");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,10 +18,25 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 //app.use(routes);
 
-require("./routes/api-routes")(app);
+//initializing session
+const sessionStore = new SequelizeStore({
+  db: db.sequelize
+});
 
-// Connect to the Mongo DB
-//mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+app.use(
+  session({
+    //hide secret?
+    secret: "keyboard cat",
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+sessionStore.sync();
+app.use(passport.initialize());
+app.use(passport.session());
+
+require("./routes/api-routes")(app);
 
 // Start the API server
 db.sequelize.sync({ force: true }).then(function() {

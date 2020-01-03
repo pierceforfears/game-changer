@@ -25,6 +25,7 @@ const sessionStore = new SequelizeStore({
 
 app.use(
   session({
+    //hide secret?
     secret: "keyboard cat",
     store: sessionStore,
     resave: false,

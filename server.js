@@ -1,4 +1,5 @@
 require("dotenv").config();
+const cors = require("cors");
 const express = require("express");
 //const routes = require("./routes");
 const session = require("express-session");
@@ -8,6 +9,7 @@ const db = require("./models");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(cors());
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

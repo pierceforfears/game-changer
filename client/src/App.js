@@ -14,7 +14,7 @@ function App() {
       <Wrapper>
         <Title>GameChanger</Title>
         <Search />
-        <Results />
+        {/* <Results /> */}
       </Wrapper>
     </div>
   );

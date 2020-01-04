@@ -1,48 +1,94 @@
 import React, { Component } from "react";
 import "./style.css";
-import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import API from "../../utils/API.js";
 
+const useStyles = makeStyles({
+  // card: {
+  //   maxWidth: 345
+  // },
+  // media: {
+  //   height: 140
+  // }
+});
+
 class SerachForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "" };
+  state = {
+    value: "",
+    searchResults: {}
+  };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { value: "" };
 
-  handleChange(event) {
+  // this.handleChange = this.handleChange.bind(this);
+  // this.handleSubmit = this.handleSubmit.bind(this);
+  // }
+
+  handleChange = event => {
     this.setState({ value: event.target.value });
-  }
+  };
 
-  handleSubmit(event) {
-    console.log(this.state.value);
+  // handleSubmit(event) {
+  //   console.log(this.state.value);
+  //   event.preventDefault();
+  //   const data = new FormData(event.target);
+
+  // fetch("/api/gamestop", {
+  //   method: "GET"
+  // });
+
+  // fetch("/api/xbox", {
+  //   method: "GET"
+  // });
+  // }
+
+  handleFormSubmit = event => {
     event.preventDefault();
-    const data = new FormData(event.target);
-
-    fetch("/api/gamestop", {
-      method: "GET"
+    API.search(this.state.value).then(response => {
+      console.log(response);
+      this.setState({ value: "" });
+      this.setState({ searchResults: response.data });
+      // thie state search reslts
+      console.log(this.state.searchResults);
     });
-
-    fetch("/api/xbox", {
-      method: "GET"
-    });
-  }
+  };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <form>
+          <label>
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          </label>
+          <button onClick={this.handleFormSubmit}>Submit</button>
+        </form>
+        <img src={this.state.searchResults.image} />
+        {/* <p>{this.state.searchResults.title}</p>
+        <p>{this.state.searchResults.price}</p> */}
+        <Card>
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {this.state.searchResults.title}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {this.state.searchResults.price}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </div>
     );
   }
 }

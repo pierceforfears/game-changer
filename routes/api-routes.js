@@ -4,6 +4,7 @@ const passport = require("../config/passport");
 module.exports = function(app) {
   // user creation
   app.post("/api/signup", function(req, res) {
+    console.log(req.body);
     db.User.create({
       username: req.body.username,
       password: req.body.password
@@ -15,6 +16,10 @@ module.exports = function(app) {
         console.log(err);
         res.json(err);
       });
+  });
+
+  app.get("/api/search", function(req, res) {
+    return res.json(queryResults);
   });
 
   // user login post authenticates using the "local" strat in the passport.js
@@ -34,5 +39,8 @@ module.exports = function(app) {
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
+  });
+  app.get("/api/test", function(req, res) {
+    res.json({ status: works });
   });
 };

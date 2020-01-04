@@ -18,8 +18,13 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/search", function(req, res) {
-    return res.json(queryResults);
+  app.post("/api/search", function(req, res) {
+    res.json({
+      image:
+        "https://pbs.twimg.com/profile_images/419166699028365312/v_HVJsCo.png",
+      title: "borderlands",
+      price: "15.00"
+    });
   });
 
   // user login post authenticates using the "local" strat in the passport.js

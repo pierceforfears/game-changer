@@ -1,55 +1,6 @@
-const db = require("../models");
-const passport = require("../config/passport");
-const xboxMarket = require("./xboxMarketScrape");
-const gamestopMarket = require("./gamestopScrape");
 const puppeteer = require("puppeteer");
 
-module.exports = function(app) {
-  // user creation
-  app.post("/api/signup", function(req, res) {
-    db.User.create({
-      username: req.body.username,
-      password: req.body.password
-    })
-      .then(function() {
-        res.redirect(307, "/api/login");
-      })
-      .catch(function(err) {
-        console.log(err);
-        res.json(err);
-      });
-  });
-
-  // user login post authenticates using the "local" strat in the passport.js
-  app.post("/api/login", passport.authenticate("local"), function(req, res) {
-    //send empty json if no user is logged in
-    if (!req.user) {
-      res.json({});
-    } else {
-      res.json({
-        username: req.user.username,
-        id: req.user.id
-      });
-    }
-  });
-
-  //logout
-  app.get("/logout", function(req, res) {
-    req.logout();
-    res.redirect("/");
-  });
-
-  app.post("/api/xbox/search", function(req, res) {
-    scrapeMarket(req.body.searchTerm, res);
-  });
-
-  app.get("/api/gamestop/search", function(req, res) {
-    const result = gamestopMarket(req.body, res);
-    res.json(result);
-  });
-};
-
-async function scrapeMarket(searchTerm, res) {
+module.exports = async function scrapeMarket(body) {
   console.log("inside async");
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
@@ -65,7 +16,7 @@ async function scrapeMarket(searchTerm, res) {
     "#pivotregion > #coreui-searchbar-6mb65sr > #searchbar #cli_shellHeaderSearchInput"
   );
 
-  await page.keyboard.type(searchTerm);
+  await page.keyboard.type("the witcher");
 
   await page.waitForSelector(
     "#pivotregion > #coreui-searchbar-6mb65sr > #searchbar #search"
@@ -100,9 +51,8 @@ async function scrapeMarket(searchTerm, res) {
     };
   });
 
-  res.json(result);
-
   console.log(result);
 
   await browser.close();
-}
+};
+//scrapeMarket();

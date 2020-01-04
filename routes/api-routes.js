@@ -7,6 +7,7 @@ const puppeteer = require("puppeteer");
 module.exports = function(app) {
   // user creation
   app.post("/api/signup", function(req, res) {
+    console.log(req.body);
     db.User.create({
       username: req.body.username,
       password: req.body.password
@@ -18,6 +19,10 @@ module.exports = function(app) {
         console.log(err);
         res.json(err);
       });
+  });
+
+  app.get("/api/search", function(req, res) {
+    return res.json(queryResults);
   });
 
   // user login post authenticates using the "local" strat in the passport.js
@@ -39,6 +44,7 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
+
   app.post("/api/xbox/search", function(req, res) {
     scrapeMarket(req.body.searchTerm, res);
   });
@@ -46,7 +52,7 @@ module.exports = function(app) {
   app.get("/api/gamestop/search", function(req, res) {
     const result = gamestopMarket(req.body, res);
     res.json(result);
-  });
+
 };
 
 async function scrapeMarket(searchTerm, res) {

@@ -53,14 +53,16 @@ module.exports = function(app) {
     scrapeMarket(req.body.searchTerm, res);
   });
 
+
   app.post("/api/gamestop/search", function(req, res) {
     scrapeGamestop(req.body.searchTerm, res);
   });
 };
 
 async function scrapeMarket(searchTerm) {
+
   console.log("inside async");
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({});
   const page = await browser.newPage();
 
   await page.goto("https://www.microsoft.com/en-us/search?q=");

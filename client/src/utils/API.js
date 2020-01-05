@@ -1,8 +1,14 @@
 import axios from "axios";
 
 export default {
-  search: function(searchTerm) {
-    return axios.post("http://localhost:3001/api/search", { searchTerm });
+  searchxb: function(searchTerm) {
+    return axios.post("http://localhost:3001/api/xbox/search", { searchTerm });
+  },
+
+  gamestopsearch: function(searchTerm) {
+    return axios.post("http://localhost:3001/api/gamestop/search", {
+      searchTerm
+    });
   },
   signUp: function(username, password) {
     return axios.post("http://localhost:3001/api/signup", {

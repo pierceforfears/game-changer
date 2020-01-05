@@ -99,13 +99,15 @@ async function scrapeMarket(searchTerm) {
     let price = document.querySelector(
       "#ProductPrice_productPrice_PriceContainer > span.price-disclaimer > span, #ProductPrice_productPrice_PriceContainer > span:nth-child(1)"
     ).innerText;
+    let image = document.querySelector("#dynamicImage_image_picture > img").src;
 
     console.log(title);
     console.log(price);
 
     return {
       title,
-      price
+      price,
+      image
     };
   });
 

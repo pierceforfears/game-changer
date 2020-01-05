@@ -20,7 +20,8 @@ const useStyles = makeStyles({
 class SerachForm extends React.Component {
   state = {
     value: "",
-    searchResults: {}
+    searchxbResults: {},
+    searchgsResults: {}
   };
 
   // constructor(props) {
@@ -51,13 +52,19 @@ class SerachForm extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    API.search(this.state.value).then(response => {
+    API.searchxb(this.state.value).then(response => {
       console.log(response);
-      this.setState({ value: "" });
-      this.setState({ searchResults: response.data });
+      this.setState({ searchxbResults: response.data });
       // thie state search reslts
-      console.log(this.state.searchResults);
+      console.log(this.state.searchxbResults);
     });
+    API.gamestopsearch(this.state.value).then(response => {
+      console.log(response);
+      this.setState({ searchgsResults: response.data });
+      // thie state search reslts
+      console.log(this.state.searchgsResults);
+    });
+    //new state var searchgame stop
   };
 
   render() {
@@ -73,17 +80,20 @@ class SerachForm extends React.Component {
           </label>
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
-        <img src={this.state.searchResults.image} />
+        <img src={this.state.searchxbResults.image} />
         {/* <p>{this.state.searchResults.title}</p>
         <p>{this.state.searchResults.price}</p> */}
         <Card>
           <CardActionArea>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {this.state.searchResults.title}
+                {this.state.searchxbResults.title}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                {this.state.searchResults.price}
+                {this.state.searchxbResults.price}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {this.state.searchgsResults.price}
               </Typography>
             </CardContent>
           </CardActionArea>

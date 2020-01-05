@@ -49,7 +49,6 @@ module.exports = function(app) {
     res.redirect("/");
   });
 
-
   app.post("/api/xbox/search", function(req, res) {
     scrapeMarket(req.body.searchTerm, res);
   });
@@ -57,12 +56,11 @@ module.exports = function(app) {
   app.get("/api/gamestop/search", function(req, res) {
     const result = gamestopMarket(req.body, res);
     res.json(result);
-
+  });
 };
-
 async function scrapeMarket(searchTerm, res) {
   console.log("inside async");
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({});
   const page = await browser.newPage();
 
   await page.goto("https://www.microsoft.com/en-us/search?q=");

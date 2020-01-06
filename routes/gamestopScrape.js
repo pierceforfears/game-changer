@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 
 module.exports = async function scrapeGamestop() {
   console.log("2 inside async 2");
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.goto("https://www.gamestop.com/");

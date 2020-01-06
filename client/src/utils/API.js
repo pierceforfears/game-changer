@@ -2,22 +2,18 @@ import axios from "axios";
 
 export default {
   searchxb: function(searchTerm) {
-    return axios.post("http://localhost:3001/api/xbox/search", { searchTerm });
+    return axios.post("/api/xbox/search", { searchTerm });
   },
 
   gamestopsearch: function(searchTerm) {
-    return axios.post("http://localhost:3001/api/gamestop/search", {
+    return axios.post("/api/gamestop/search", {
       searchTerm
     });
   },
   signUp: function(username, password) {
-    return axios.post("http://localhost:3001/api/signup", {
+    return axios.post("/api/signup", {
       username: username,
       password: password
     });
   }
-
-  //   game ax post<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-  //   xbox<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 };

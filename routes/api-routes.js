@@ -22,12 +22,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/search", function(req, res) {
-    res.json({
-      image:
-        "https://pbs.twimg.com/profile_images/419166699028365312/v_HVJsCo.png",
-      title: "borderlands",
-      price: "15.00"
-    });
+    res.json({});
   });
 
   // user login post authenticates using the "local" strat in the passport.js
@@ -53,14 +48,12 @@ module.exports = function(app) {
     scrapeMarket(req.body.searchTerm, res);
   });
 
-
   app.post("/api/gamestop/search", function(req, res) {
     scrapeGamestop(req.body.searchTerm, res);
   });
 };
 
-async function scrapeMarket(searchTerm) {
-
+async function scrapeMarket(searchTerm, res) {
   console.log("inside async");
   const browser = await puppeteer.launch({});
   const page = await browser.newPage();
@@ -113,12 +106,14 @@ async function scrapeMarket(searchTerm) {
     };
   });
 
+  res.json(result);
+
   console.log(result);
 
   await browser.close();
 }
 
-async function scrapeGamestop(searchTerm) {
+async function scrapeGamestop(searchTerm, res) {
   console.log("2 inside async 2");
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
@@ -175,6 +170,8 @@ async function scrapeGamestop(searchTerm) {
       price
     };
   });
+
+  res.json(result);
 
   console.log(result);
 

@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 
 module.exports = async function scrapeMarket(searchTerm, res) {
   console.log("inside async");
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.keyboard.type(searchTerm);
@@ -29,9 +29,6 @@ module.exports = async function scrapeMarket(searchTerm, res) {
     ).innerText;
     let image = document.querySelector("#dynamicImage_image_picture > img").src;
 
-    console.log(title);
-    console.log(price);
-
     return {
       title,
       price,
@@ -40,8 +37,6 @@ module.exports = async function scrapeMarket(searchTerm, res) {
   });
 
   res.json(result);
-
-  console.log(result);
 
   await browser.close();
 };

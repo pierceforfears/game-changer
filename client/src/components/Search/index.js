@@ -81,9 +81,10 @@ class SerachForm extends React.Component {
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
         <img src={this.state.searchxbResults.image} />
-        {/* <p>{this.state.searchResults.title}</p>
-        <p>{this.state.searchResults.price}</p> */}
-        <Card>
+        <p class="gameTitle">{this.state.searchxbResults.title}</p>
+        <p class="hide">Xbox Marketplace:{this.state.searchxbResults.price}</p>
+        <p class="hide">GameStop:{this.state.searchgsResults.price}</p>
+        {/* <Card>
           <CardActionArea>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
@@ -97,7 +98,7 @@ class SerachForm extends React.Component {
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Card>
+        </Card> */}
       </div>
     );
   }

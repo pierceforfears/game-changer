@@ -7,12 +7,13 @@ module.exports = async function scrapeMarket(searchTerm, res) {
   });
   const page = await browser.newPage();
 
-  await page.keyboard.type(searchTerm);
+  //await page.keyboard.type(searchTerm);
 
   const encodedSearch = encodeURI(searchTerm);
 
   await page.goto(
-    `https://www.microsoft.com/en-us/search/shop/games?q=${encodedSearch}`
+    `https://www.microsoft.com/en-us/search/shop/games?q=${encodedSearch}`,
+    { waitUntil: "load", timeout: 0 }
   );
 
   await page.setViewport({ width: 1440, height: 821 });

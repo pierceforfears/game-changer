@@ -6,9 +6,10 @@ import Login from "./login";
 const NavBar = () => {
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: "#0e7a0d" }}>
         <Toolbar>
           <Typography variant="title" color="inherit">
+            <h3>Looking for the best deal on games? Let GameChanger help.</h3>
             <Login />
           </Typography>
         </Toolbar>

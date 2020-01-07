@@ -1,9 +1,7 @@
 import React from "react";
 import "./App.css";
 import Wrapper from "./components/Wrapper";
-import Title from "./components/Title";
 import Search from "./components/Search";
-import Results from "./components/Results";
 import NavBar from "./components/navBar";
 // import GamesList from "./components/GamesList";
 
@@ -12,9 +10,12 @@ function App() {
     <div>
       <NavBar />
       <Wrapper>
-        <Title>GameChanger</Title>
+        <h1>
+          <span className="game">GAME</span>
+          <span className="changer">changer</span>
+          <span className="xbox">for XBOX</span>
+        </h1>
         <Search />
-        {/* <Results /> */}
       </Wrapper>
     </div>
   );

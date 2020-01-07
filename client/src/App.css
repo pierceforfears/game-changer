@@ -1,38 +1,55 @@
-/* .App {
-  text-align: center;
+body {
+  background-image: url("./assets/bg.jpg");
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.loginForm {
+  position: absolute;
+  right: 50px;
+  display: inline-flex;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.field {
+  /* width: 100%; */
+  /* height: 40px; */
+  border-radius: 4px;
+  /* position: relative; */
+  /* background-color: rgba(255, 255, 255, 0.3); */
+  /* transition: 0.3s all; */
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wrapper {
+  padding-top: 50px;
+  background: #eceff1;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-flow: row wrap;
+  padding: 20px;
+  justify-content: space-around;
+  align-content: flex-start;
+  overflow: auto;
+  opacity: 0.8;
 }
-
-.App-link {
-  color: #61dafb;
+h1 {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.game {
+  color: #0e7a0d;
+  font-size: 150px;
+  font-family: "Cute Font", cursive;
+}
+.changer {
+  color: #000;
+  font-size: 110px;
+  letter-spacing: -3px;
+  font-family: "Sedgwick Ave", cursive;
+}
+.xbox {
+  font-family: "Montserrat", sans-serif;
+}
+.searchField {
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+}
+.gameTitle {
+  font-weight: bold;
+}

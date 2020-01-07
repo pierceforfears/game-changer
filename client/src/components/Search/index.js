@@ -70,7 +70,7 @@ class SerachForm extends React.Component {
   render() {
     return (
       <div>
-        <form>
+        <form className="searchField">
           <label>
             <input
               type="text"
@@ -81,9 +81,13 @@ class SerachForm extends React.Component {
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
         <img src={this.state.searchxbResults.image} />
-        <p class="gameTitle">{this.state.searchxbResults.title}</p>
-        <p class="hide">Xbox Marketplace:{this.state.searchxbResults.price}</p>
-        <p class="hide">GameStop:{this.state.searchgsResults.price}</p>
+        <p className="gameTitle">{this.state.searchxbResults.title}</p>
+        <p className="hide">
+          Xbox Marketplace:&nbsp;{this.state.searchxbResults.price}
+        </p>
+        <p className="hide">
+          GameStop:&nbsp;{this.state.searchgsResults.price}
+        </p>
         {/* <Card>
           <CardActionArea>
             <CardContent>

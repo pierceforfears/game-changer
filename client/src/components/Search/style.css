@@ -1,23 +1,18 @@
 /* need to figure out how to style with react */
 
-body {
-  background-image: url("../../assets/bg.jpg");
-}
-.field {
-  width: 100%;
-  height: 40px;
-  border-radius: 4px;
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.3);
-  transition: 0.3s all;
-}
-.field:hover {
+/* .field { */
+/* width: 100%; */
+/* height: 40px; */
+/* border-radius: 4px; */
+/* position: relative; */
+/* background-color: rgba(255, 255, 255, 0.3); */
+/* transition: 0.3s all; */
+/* } */
+/* .field:hover {
   background-color: rgba(255, 255, 255, 0.45);
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
-}
-.gameTitle {
-  font-weight: bold;
-}
+} */
+
 /* .hide {
   display: none;
 } */

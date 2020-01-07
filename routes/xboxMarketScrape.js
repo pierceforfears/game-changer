@@ -2,7 +2,9 @@ const puppeteer = require("puppeteer");
 
 module.exports = async function scrapeMarket(searchTerm, res) {
   console.log("inside async");
-  const browser = await puppeteer.launch({ headless: true, args: [‘--no-sandbox’] });
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+  });
   const page = await browser.newPage();
 
   await page.keyboard.type(searchTerm);

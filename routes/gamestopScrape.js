@@ -1,73 +1,58 @@
-const puppeteer = require("puppeteer");
+const cheerio = require("cheerio");
+const axios = require("axios");
+//const db = require("../models");
 
-module.exports = async function scrapeGamestop(searchTerm, res) {
-  console.log("2 inside async 2");
+module.exports = function scrapeGamestop(searchTerm, res) {
+  const encodedSearch = encodeURI(searchTerm);
 
-  let startTime, endTime;
-  startTime = Date.now();
+  axios
+    .get(
+      `https://www.gamestop.com/video-games/xbox-one/games?q=${encodedSearch}`
+    )
+    .then(function(response) {
+      var $ = cheerio.load(response.data);
+      console.log("DOLLA DOLLA BILLS");
 
-  const browser = await puppeteer.launch({
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--proxy-server='direct://'",
-      "--proxy-bypass-list=*",
-      "--headlesss",
-      "--hide-scrollbars",
-      "--mute-audio",
-      "--disable-gl-drawing-for-tests"
-    ]
-  });
-  const page = await browser.newPage();
-
-  await page.setJavaScriptEnabled(false);
-
-  //await page.keyboard.type(searchTerm);
-  try {
-    const encodedSearch = encodeURI(searchTerm);
-
-    const url = `https://www.gamestop.com/video-games/xbox-one/games?q=${encodedSearch}`;
-
-    await page.goto(url, {
-      waitUntil: "domcontentloaded"
+      console.log("-----------------");
+      //$("div.tile-body").each(function(i, element) {
+      const result = {};
+      //title - #product-search-results > div.row.align-items-start > div.product-grid-wrapper > div.row.product-grid > div.row.infinitescroll-results-grid > div:nth-child(2) > div > div > div.tile-body > div.product-tile-header > div.pdp-link > a
+      //price - #product-search-results > div.row.align-items-start > div.product-grid-wrapper > div.row.product-grid > div.row.infinitescroll-results-grid > div:nth-child(2) > div > div > div.tile-body > div.condition-pricing.pb-1 > ul > li:nth-child(1) > span.price.pull-right > div > span > span > span
+      result.title = $("div.row.infinitescroll-results-grid")
+        .children("div:nth-child(2)")
+        .children("div")
+        .children("div")
+        .children("div.tile-body")
+        .children("div.product-tile-header")
+        .children("div.pdp-link")
+        .children("a")
+        .text();
+      result.price = $("div.row.infinitescroll-results-grid")
+        .children("div:nth-child(2)")
+        .children("div")
+        .children("div")
+        .children("div.tile-body")
+        .children("div.condition-pricing.pb-1")
+        .children("ul")
+        .children("li:nth-child(1)")
+        .children("span.price")
+        .children("div")
+        .children("span")
+        .children("span")
+        .children("span")
+        .attr("content");
+      //.text();
+      console.log("this is the RESULT log");
+      console.log(result);
+      res.json(result);
+      /* db.Game.create(result)
+          .then(function(dbGame) {
+            console.log("This is the dbGame LOG");
+            console.log(dbGame);
+          })
+          .catch(function(err) {
+            console.log(err);
+          }); */
+      // });
     });
-
-    await page.setViewport({ width: 1440, height: 821 });
-
-    const linkSelector =
-      ".product-grid-tile-wrapper:nth-child(2) > .product > .product-tile > .image-container > a > .tile-image";
-    await page.waitForSelector(linkSelector);
-
-    await Promise.all([page.click(linkSelector), page.waitForNavigation()]);
-
-    await page.waitForSelector(
-      "body > div.page > div.product-detail.product-wrapper > div.product-detail-top-section.apple-pay-available > div.product-details-container > div.row.justify-content-between > div.primary-details > div.product-details-top-desktop > div.product-name-section > h1"
-    );
-    await page.waitForSelector(
-      "body > div.page > div.product-detail.product-wrapper > div.product-detail-top-section.apple-pay-available > div.product-details-container > div.row.justify-content-between > div.primary-details > div.primary-details-row > div.product-variation-attributes > div:nth-child(3) > div > div > div.card.condition-attribute-card.not-orderable.selectable > div > div.condition-prices > div > span > span > span, body > div.page > div.product-detail.product-wrapper > div.product-detail-top-section.apple-pay-available > div.product-details-container > div.row.justify-content-between > div.primary-details > div.primary-details-row > div.product-variation-attributes > div:nth-child(3) > div > div > div.card.condition-attribute-card.orderable.selected.selectable > div > div.condition-prices > div > span > span > span"
-    );
-
-    const result = await page.evaluate(() => {
-      let title = document.querySelector(
-        "body > div.page > div.product-detail.product-wrapper > div.product-detail-top-section.apple-pay-available > div.product-details-container > div.row.justify-content-between > div.primary-details > div.product-details-top-desktop > div.product-name-section > h1"
-      ).innerText;
-      let price = document.querySelector(
-        "body > div.page > div.product-detail.product-wrapper > div.product-detail-top-section.apple-pay-available > div.product-details-container > div.row.justify-content-between > div.primary-details > div.primary-details-row > div.product-variation-attributes > div:nth-child(3) > div > div > div.card.condition-attribute-card.not-orderable.selectable > div > div.condition-prices > div > span > span > span, body > div.page > div.product-detail.product-wrapper > div.product-detail-top-section.apple-pay-available > div.product-details-container > div.row.justify-content-between > div.primary-details > div.primary-details-row > div.product-variation-attributes > div:nth-child(3) > div > div > div.card.condition-attribute-card.orderable.selected.selectable > div > div.condition-prices > div > span > span > span"
-      ).innerText;
-
-      return {
-        title,
-        price
-      };
-    });
-
-    res.json(result);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-
-  endTime = Date.now();
-  console.log("TOTAL RUNNING TIME:", endTime - startTime);
-
-  await browser.close();
 };

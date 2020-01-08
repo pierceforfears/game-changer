@@ -30,8 +30,8 @@ module.exports = function scrapeMarket(searchTerm, res) {
         .children("a")
         .children("div.c-channel-placement-image")
         .children("picture")
-        //.children("img")
-        .attr("src");
+        .children("img")
+        .attr("data-src");
 
       console.log(result);
       res.json(result);

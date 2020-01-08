@@ -1,6 +1,5 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
-//const db = require("../models");
 
 module.exports = function scrapeGamestop(searchTerm, res) {
   const encodedSearch = encodeURI(searchTerm);
@@ -11,10 +10,7 @@ module.exports = function scrapeGamestop(searchTerm, res) {
     )
     .then(function(response) {
       var $ = cheerio.load(response.data);
-      console.log("DOLLA DOLLA BILLS");
 
-      console.log("-----------------");
-      //$("div.tile-body").each(function(i, element) {
       const result = {};
       //title - #product-search-results > div.row.align-items-start > div.product-grid-wrapper > div.row.product-grid > div.row.infinitescroll-results-grid > div:nth-child(2) > div > div > div.tile-body > div.product-tile-header > div.pdp-link > a
       //price - #product-search-results > div.row.align-items-start > div.product-grid-wrapper > div.row.product-grid > div.row.infinitescroll-results-grid > div:nth-child(2) > div > div > div.tile-body > div.condition-pricing.pb-1 > ul > li:nth-child(1) > span.price.pull-right > div > span > span > span
@@ -41,18 +37,9 @@ module.exports = function scrapeGamestop(searchTerm, res) {
         .children("span")
         .children("span")
         .attr("content");
-      //.text();
+
       console.log("this is the RESULT log");
       console.log(result);
       res.json(result);
-      /* db.Game.create(result)
-          .then(function(dbGame) {
-            console.log("This is the dbGame LOG");
-            console.log(dbGame);
-          })
-          .catch(function(err) {
-            console.log(err);
-          }); */
-      // });
     });
 };

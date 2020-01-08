@@ -1,45 +1,39 @@
-const puppeteer = require("puppeteer");
+const cheerio = require("cheerio");
+const axios = require("axios");
 
-module.exports = async function scrapeMarket(searchTerm, res) {
-  console.log("inside async");
-  const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
-  });
-  const page = await browser.newPage();
-
-  //await page.keyboard.type(searchTerm);
-
+module.exports = function scrapeMarket(searchTerm, res) {
   const encodedSearch = encodeURI(searchTerm);
 
-  await page.goto(
-    `https://www.microsoft.com/en-us/search/shop/games?q=${encodedSearch}`,
-    { waitUntil: "load", timeout: 0 }
-  );
+  axios
+    .get(`https://www.microsoft.com/en-us/search/shop/games?q=${encodedSearch}`)
+    .then(function(response) {
+      var $ = cheerio.load(response.data);
 
-  await page.setViewport({ width: 1440, height: 821 });
+      //title - #coreui-productplacementlist-1g76zxk_0 > h3
+      //price - #coreui-productplacementlist-1g76zxk_0 > div.c-channel-placement-price > div > span:nth-child(5)
+      //image - #coreui-productplacementlist-1g76zxk > div:nth-child(3) > div.c-group.f-wrap-items.context-list-page > div:nth-child(1) > a > div.c-channel-placement-image > picture > img
 
-  const linkSelector =
-    "#coreui-productplacementlist-1g76zxk > div:nth-child(3) > div.c-group.f-wrap-items.context-list-page > div:nth-child(1) > a > div.c-channel-placement-image > picture > img";
-  await page.waitForSelector(linkSelector);
+      const result = {};
 
-  await Promise.all([page.click(linkSelector), page.waitForNavigation()]);
+      result.title = $("#coreui-productplacementlist-1g76zxk_0")
+        .children("h3")
+        .text();
+      result.price = $("#coreui-productplacementlist-1g76zxk_0")
+        .children("div.c-channel-placement-price")
+        .children("div")
+        .children("span:nth-child(5)")
+        .text();
+      result.image = $("#coreui-productplacementlist-1g76zxk")
+        .children("div:nth-child(3)")
+        .children("div.c-group.f-wrap-items.context-list-page")
+        .children("div:nth-child(1)")
+        .children("a")
+        .children("div.c-channel-placement-image")
+        .children("picture")
+        //.children("img")
+        .attr("src");
 
-  const result = await page.evaluate(() => {
-    let title = document.querySelector("#DynamicHeading_productTitle")
-      .innerText;
-    let price = document.querySelector(
-      "#ProductPrice_productPrice_PriceContainer > span.price-disclaimer > span, #ProductPrice_productPrice_PriceContainer > span:nth-child(1)"
-    ).innerText;
-    let image = document.querySelector("#dynamicImage_image_picture > img").src;
-
-    return {
-      title,
-      price,
-      image
-    };
-  });
-
-  res.json(result);
-
-  await browser.close();
+      console.log(result);
+      res.json(result);
+    });
 };

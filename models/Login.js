@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
   };
-  
+
   // hashes the users password before it is even created.
   User.beforeCreate(function(user) {
     user.password = bcrypt.hashSync(
@@ -25,6 +25,12 @@ module.exports = function(sequelize, DataTypes) {
       null
     );
   });
+
+  User.associate = function(models) {
+    User.hasMany(models.Searches, {
+      onDelete: "cascade"
+    });
+  };
 
   return User;
 };

@@ -72,8 +72,12 @@ class SerachForm extends React.Component {
           Xbox Marketplace:&nbsp;{this.state.searchxbResults.price}
         </p>
         <p className={!this.state.searchgsResults.price ? "hide" : null}>
-          GameStop:&nbsp;{this.state.searchgsResults.price}
+          GameStop New:&nbsp;{this.state.searchgsResults.price}
         </p>
+        <p className={!this.state.searchgsResults.price2 ? "hide" : null}>
+          GameStop Pre-Owned:&nbsp;{this.state.searchgsResults.price2}
+        </p>
+        <h2>Your Previous searches:</h2>
       </div>
     );
   }

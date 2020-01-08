@@ -20,8 +20,15 @@ module.exports = function(app) {
       });
   });
 
-  app.post("/api/search", function(req, res) {
-    res.json({});
+  app.get("/api/user", function(req, res) {
+    if (!req.user) {
+      res.json({});
+    } else {
+      res.json({
+        username: req.user.username,
+        id: req.user.id
+      });
+    }
   });
 
   // user login post authenticates using the "local" strat in the passport.js

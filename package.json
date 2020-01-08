@@ -30,7 +30,9 @@
   "homepage": "https://github.com/pierceforfears/game-changer#readme",
   "dependencies": {
     "@material-ui/core": "^4.8.2",
+    "axios": "^0.19.1",
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.3",
     "connect-session-sequelize": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

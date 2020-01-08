@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import API from "../utils/API.js";
+import Button from "@material-ui/core/Button";
 
 class Login extends React.Component {
   state = {
@@ -29,8 +30,8 @@ class Login extends React.Component {
 
   render(props) {
     return (
-      <div className="loginForm">
-        <form>
+      <div>
+        <form className="loginForm">
           <input
             className="field"
             placeholder="Username"
@@ -45,7 +46,13 @@ class Login extends React.Component {
             value={this.state.password}
             onChange={this.handleInputChange}
           />
-          <button onClick={this.handleFormSubmit}>Submit</button>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={this.handleFormSubmit}
+          >
+            Submit
+          </Button>
         </form>
         <div>
           {this.state.filteredData.map(i => (

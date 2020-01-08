@@ -18,11 +18,13 @@ module.exports = function scrapeMarket(searchTerm, res) {
       result.title = $("#coreui-productplacementlist-1g76zxk_0")
         .children("h3")
         .text();
+
       result.price = $("#coreui-productplacementlist-1g76zxk_0")
         .children("div.c-channel-placement-price")
         .children("div")
-        .children("span:nth-child(5)")
+        .children("span")
         .text();
+
       result.image = $("#coreui-productplacementlist-1g76zxk")
         .children("div:nth-child(3)")
         .children("div.c-group.f-wrap-items.context-list-page")
@@ -33,7 +35,9 @@ module.exports = function scrapeMarket(searchTerm, res) {
         .children("img")
         .attr("data-src");
 
-      console.log(result);
+      var remove = result.price.trim(" ");
+
+      console.log(remove);
       res.json(result);
     });
 };

@@ -1,7 +1,7 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
 
-module.exports = function scrapeGamestop(searchTerm, res) {
+/*module.exports = function scrapeGamestop(searchTerm, res) {
   const encodedSearch = encodeURI(searchTerm);
 
   axios
@@ -48,9 +48,9 @@ module.exports = function scrapeGamestop(searchTerm, res) {
       console.log(result);
       res.json(result);
     });
-};
+};*/
 
-/*module.exports = function scrapeGamestop(searchTerm, res) {
+module.exports = function scrapeGamestop(searchTerm, res) {
   const encodedSearch = encodeURI(searchTerm);
 
   axios
@@ -60,13 +60,12 @@ module.exports = function scrapeGamestop(searchTerm, res) {
     .then(function(response) {
       var $ = cheerio.load(response.data);
 
-      const titles = [];
+      const allGames = [];
 
-      $("div.row.infinitescroll-results-grid").each(function(i, element) {
+      $("div.product-grid-tile-wrapper").each(function(i, element) {
         const result = {};
 
         result.title = $(this)
-          .children("div:nth-child(2)")
           .children("div")
           .children("div")
           .children("div.tile-body")
@@ -76,18 +75,16 @@ module.exports = function scrapeGamestop(searchTerm, res) {
           .text();
 
         result.price = $(this)
-          .children("div:nth-child(2)")
           .children("div")
           .children("div")
           .children("div.tile-body")
           .children("div.condition-pricing.pb-1")
-          .children("ul")
+          .children("ul.list-group")
           .children("li:nth-child(1)")
           .children("span")
           .text();
 
         result.price2 = $(this)
-          .children("div:nth-child(2)")
           .children("div")
           .children("div")
           .children("div.tile-body")
@@ -97,12 +94,17 @@ module.exports = function scrapeGamestop(searchTerm, res) {
           .children("span")
           .text();
 
-        if (!titles.includes(result.title)) {
-          titles.push(result.title);
-        } else return;
+        console.log("result.title", result.title);
+        console.log("result.price", result.price);
+        console.log("result.price2", result.price2);
+        result.title = result.title.toUpperCase();
+        allGames.push(result);
       });
-      console.log("this is the RESULT log");
-      console.log(result);
-      res.json(result);
+
+      const winner = allGames.find(
+        game => game.title === searchTerm.toUpperCase()
+      );
+
+      res.json(winner);
     });
-};*/
+};

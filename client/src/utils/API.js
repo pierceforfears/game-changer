@@ -4,7 +4,9 @@ export default {
   searchxb: function(searchTerm) {
     return axios.post("/api/xbox/search", { searchTerm });
   },
-
+  getUser: function() {
+    return axios.get("/api/user");
+  },
   gamestopsearch: function(searchTerm) {
     return axios.post("/api/gamestop/search", {
       searchTerm
@@ -16,9 +18,12 @@ export default {
       password: password
     });
   },
-  saveResults: function(title, xbprice, gsprice) {
-    console.log(title, xbprice, gsprice);
+  getSearches: function() {
+    return axios.get("/api/searches");
+  },
+  saveResults: function(UserId, title, xbprice, gsprice) {
     return axios.post("/api/saveResults", {
+      UserId, 
       title,
       xbprice,
       gsprice

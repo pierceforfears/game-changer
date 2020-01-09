@@ -1,6 +1,6 @@
 # game-changer
 
-This is a MERN full-stack application that allows users to simultaneously search the  Gamestop website and Xbox One Marketplace with the help of the packages of axios and cheerio. The front-end of the application utilizes React for user interfaces. Node runs on the server-side of this application, and express handles the web requests there. MySQL stores the data for this application. 
+This is a MERN full-stack application that allows users to simultaneously search the  Gamestop website and Xbox One Marketplace with the help of the packages of axios and cheerio. The front-end of the application utilizes React for user interfaces. Node runs on the server-side of this application, and express handles the web requests on the server. MySQL stores the data for this application. 
 ---
 
 ## Table of Contents
@@ -130,8 +130,8 @@ The user can interact with the GUI as necessary.
 ## Authors
 
 * **Adam Day** - *Models* - [Adam Day](https://github.com/dayadam)
-* **Triston Tetley** - *Controllers* - [Triston Tetley](https://github.com/tristontetley)
 * **Robert Pierce** - *Views* - [Robert Pierce](https://github.com/pierceforfears)
+* **Triston Tetley** - *Controllers* - [Triston Tetley](https://github.com/tristontetley)
 
 ## Acknowledgments
 

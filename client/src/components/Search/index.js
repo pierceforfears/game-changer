@@ -44,6 +44,17 @@ class SerachForm extends React.Component {
     });
   };
 
+  saveResults = event => {
+    event.preventDefault();
+    API.saveResults(
+      this.state.searchxbResults.title,
+      this.state.searchxbResults.price,
+      this.state.searchgsResults.price
+    ).then(response => {
+      console.log(response);
+    });
+  };
+
   render() {
     return (
       <div>
@@ -68,12 +79,18 @@ class SerachForm extends React.Component {
         </form>
         <img src={this.state.searchxbResults.image} />
         <p className="gameTitle">{this.state.searchxbResults.title}</p>
-        <p className={!this.state.searchxbResults.price ? "hide" : null}>
+        <p className={!this.state.searchxbResults.title ? "hide" : null}>
           Xbox Marketplace:&nbsp;{this.state.searchxbResults.price}
         </p>
         <p className={!this.state.searchgsResults.price ? "hide" : null}>
           GameStop:&nbsp;{this.state.searchgsResults.price}
         </p>
+        <p className={!this.state.searchgsResults.price2 ? "hide" : null}>
+          GameStop:&nbsp;{this.state.searchgsResults.price2}
+        </p>
+        <Button size="small" variant="contained" onClick={this.saveResults}>
+          Save Result
+        </Button>
       </div>
     );
   }

@@ -21,12 +21,13 @@ export default {
   getSearches: function() {
     return axios.get("/api/searches");
   },
-  saveResults: function(UserId, title, xbprice, gsprice) {
+  saveResults: function(UserId, title, xbprice, gsprice, gsprice2) {
     return axios.post("/api/saveResults", {
       UserId, 
       title,
       xbprice,
-      gsprice
+      gsprice,
+      gsprice2
     });
   }
 };

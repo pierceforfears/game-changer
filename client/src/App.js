@@ -3,7 +3,6 @@ import "./App.css";
 import Wrapper from "./components/Wrapper";
 import Search from "./components/Search";
 import NavBar from "./components/navBar";
-// import GamesList from "./components/GamesList";
 
 function App() {
   return (

@@ -51,7 +51,8 @@ class SerachForm extends React.Component {
         response.id,
         this.state.searchxbResults.title,
         this.state.searchxbResults.price,
-        this.state.searchgsResults.price
+        this.state.searchgsResults.price,
+        this.state.searchgsResults.price2
       ).then(response => {
         console.log(response);
       });

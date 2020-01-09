@@ -49,7 +49,8 @@ class SerachForm extends React.Component {
     API.saveResults(
       this.state.searchxbResults.title,
       this.state.searchxbResults.price,
-      this.state.searchgsResults.price
+      this.state.searchgsResults.price,
+      this.state.searchgsResults.price2
     ).then(response => {
       console.log(response);
     });
@@ -83,10 +84,10 @@ class SerachForm extends React.Component {
           Xbox Marketplace:&nbsp;{this.state.searchxbResults.price}
         </p>
         <p className={!this.state.searchgsResults.price ? "hide" : null}>
-          GameStop New:&nbsp;{this.state.searchgsResults.price}
+          GameStop:&nbsp;{this.state.searchgsResults.price}
         </p>
         <p className={!this.state.searchgsResults.price2 ? "hide" : null}>
-          GameStop Pre-Owned:&nbsp;{this.state.searchgsResults.price2}
+          GameStop:&nbsp;{this.state.searchgsResults.price2}
         </p>
         <Button size="small" variant="contained" onClick={this.saveResults}>
           Save Result

@@ -16,12 +16,13 @@ export default {
       password: password
     });
   },
-  saveResults: function(title, xbprice, gsprice) {
-    console.log(title, xbprice, gsprice);
+  saveResults: function(title, xbprice, gsprice, gsprice2) {
+    console.log(title, xbprice, gsprice, gsprice2);
     return axios.post("/api/saveResults", {
       title,
       xbprice,
-      gsprice
+      gsprice,
+      gsprice2
     });
   }
 };

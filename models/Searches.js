@@ -13,6 +13,10 @@ module.exports = function(sequelize, DataTypes) {
     gsprice: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    gsprice2: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
 

@@ -104,7 +104,7 @@ module.exports = function scrapeGamestop(searchTerm, res) {
       for (let i = 0; i < allGames.length; i++) {
         let winner = allGames[i];
         let searchedTerm = searchTerm.toUpperCase();
-        if (searchedTerm == winner) {
+        if (searchedTerm === winner) {
           console.log("this is the GAME", winner);
           return winner;
         }

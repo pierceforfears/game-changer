@@ -23,11 +23,14 @@ export default {
   },
   saveResults: function(UserId, title, xbprice, gsprice, gsprice2) {
     return axios.post("/api/saveResults", {
-      UserId, 
+      UserId,
       title,
       xbprice,
       gsprice,
       gsprice2
     });
+  },
+  logout: function() {
+    return axios.get("/logout");
   }
 };

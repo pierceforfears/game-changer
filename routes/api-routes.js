@@ -87,7 +87,7 @@ module.exports = function(app) {
   //logout
   app.get("/logout", function(req, res) {
     req.logout();
-    res.redirect("/");
+    res.json({ logout: true });
   });
 
   app.post("/api/xbox/search", function(req, res) {

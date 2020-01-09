@@ -48,7 +48,7 @@ class SerachForm extends React.Component {
     event.preventDefault();
     API.getUser().then(response => {
       API.saveResults(
-        response.id,
+        response.data.id,
         this.state.searchxbResults.title,
         this.state.searchxbResults.price,
         this.state.searchgsResults.price,

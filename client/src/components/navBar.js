@@ -14,7 +14,12 @@ class NavBar extends React.Component {
     if (!this.state.isLoggedIn) {
       return <Login handleLogin={this.handleLogin} />;
     } else {
-      return <UserGreeting username={this.state.username} />;
+      return (
+        <UserGreeting
+          username={this.state.username}
+          handleLogin={this.handleLogin}
+        />
+      );
     }
   };
   handleLogin = (loginState, username) => {

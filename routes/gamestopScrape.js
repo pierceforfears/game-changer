@@ -61,9 +61,10 @@ module.exports = function scrapeGamestop(searchTerm, res) {
       var $ = cheerio.load(response.data);
 
       const allGames = [];
-      const result = {};
 
       $("div.product-grid-tile-wrapper").each(function(i, element) {
+        const result = {};
+
         result.title = $(this)
           .children("div")
           .children("div")
@@ -96,20 +97,14 @@ module.exports = function scrapeGamestop(searchTerm, res) {
         console.log("result.title", result.title);
         console.log("result.price", result.price);
         console.log("result.price2", result.price2);
-        if (!allGames.includes(result.title)) {
-          allGames.push(result.title.toUpperCase());
-        } else return;
-        console.log(allGames);
+        result.title = result.title.toUpperCase();
+        allGames.push(result);
       });
-      for (let i = 0; i < allGames.length; i++) {
-        let winner = allGames[i];
-        let searchedTerm = searchTerm.toUpperCase();
-        if (searchedTerm === winner) {
-          console.log("this is the GAME", winner);
-          return winner;
-        }
-      }
 
-      res.json(result);
+      const winner = allGames.find(
+        game => game.title === searchTerm.toUpperCase()
+      );
+
+      res.json(winner);
     });
 };

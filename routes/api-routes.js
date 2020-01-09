@@ -20,8 +20,10 @@ module.exports = function(app) {
       });
   });
 
-  app.post("/api/search", function(req, res) {
-    res.json({});
+  app.post("/api/saveResults", function(req, res) {
+    if (req.user) {
+      db.Searches.create(req.body).then(a => res.json(a));
+    }
   });
 
   // user login post authenticates using the "local" strat in the passport.js

@@ -20,11 +20,19 @@ class Login extends React.Component {
     });
   };
 
+  // componentDidMount = () => {};
+
+  componentWillUnmount() {
+    this.setState({ username: "", password: "" });
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
     API.signUp(this.state.username, this.state.password).then(answer => {
       console.log(answer);
-      this.setState({ username: "", password: "" });
+      if (answer.status === 200) {
+        this.props.handleLogin(true, answer.data.username);
+      }
     });
   };
 
@@ -46,13 +54,13 @@ class Login extends React.Component {
             value={this.state.password}
             onChange={this.handleInputChange}
           />
-          <Button
+          <button
             size="small"
             variant="contained"
             onClick={this.handleFormSubmit}
           >
-            Submit
-          </Button>
+            Login
+          </button>
         </form>
         <div>
           {this.state.filteredData.map(i => (

@@ -15,5 +15,13 @@ export default {
       username: username,
       password: password
     });
+  },
+  saveResults: function(title, xbprice, gsprice) {
+    console.log(title, xbprice, gsprice);
+    return axios.post("/api/saveResults", {
+      title,
+      xbprice,
+      gsprice
+    });
   }
 };

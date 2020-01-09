@@ -20,14 +20,9 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/user", function(req, res) {
-    if (!req.user) {
-      res.json({});
-    } else {
-      res.json({
-        username: req.user.username,
-        id: req.user.id
-      });
+  app.post("/api/saveResults", function(req, res) {
+    if (req.user) {
+      db.Searches.create(req.body).then(a => res.json(a));
     }
   });
 

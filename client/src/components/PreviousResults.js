@@ -25,10 +25,10 @@ class PreviousResults extends React.Component {
           return (
             <p>
               <ul key={item.id}>
-                <li>{item.title}</li>
-                <li>{item.xbprice}</li>
-                <li>{item.gsprice}</li>
-                <li>{item.gsprice2}</li>
+                <li className="gameTitle">{item.title}</li>
+                <li>Xbox Marketplace&nbsp;{item.xbprice}</li>
+                <li>GameStop&nbsp;{item.gsprice}</li>
+                <li>GameStop&nbsp;{item.gsprice2}</li>
               </ul>
             </p>
           );

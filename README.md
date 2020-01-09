@@ -1,7 +1,6 @@
 # game-changer
 
-This is a MERN full-stack application that allows users to simultaneously search the  Gamestop website and Xbox One Marketplace with the help of the packages of axios and cheerio. The package passport handled user authentication.
-
+This is a MERN full-stack application that allows users to simultaneously search the  Gamestop website and Xbox One Marketplace with the help of the packages of axios and cheerio. The front-end of the application utilizes React for user interfaces. Node runs on the server-side of this application, and express handles the web requests there. MySQL stores the data for this application. 
 ---
 
 ## Table of Contents
@@ -12,17 +11,17 @@ This is a MERN full-stack application that allows users to simultaneously search
 
 ## Organization of the Application
 
-The app mainly consists of three functions intended for the CLI arguments of `concert-this`, `spotify-this-song`, and `movie-this`. The `concert-this` function uses axios to connect to the SeatGeek API and log information for a given artist or band of their soonest upcoming event. The `spotify-this-song` function uses the node-spotify-api package to connect to the Spotify API and retrieve and log information about the searched song. The `movie-this` function uses axios to connect to the omdb API and retrieve and log information about the searched movie. The application checks to see if `do-what-it-says` is the first argument, in which case the application will read the random.txt file and execute the command (i.e., `spotify-this-song`) and search term located in that file. 
+The app has a signup/login area where users can create accounts. BCryptJS hashes and salts the passwords for secure password storage on the MySQL database. A local Passport strategy creates an express session which authenticates and stores the user's account information. The application takes in a search term from the user and searches the Gamestop website and Xbox One Marketplace, and then scrapes those sites using cheerio and displays the results to the user with React. The user can also view previous search results they have saved. 
 
 ## Getting Started
 
-In order for this application to run on your local computer, you must have Node.js installed as well as the required node modules. 
+In order for this application to run on your local computer, you must have Node.js installed as well as the required node modules and a MySQL database and server. 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ## Prerequisites
 
-Node.js and moment, axios, node-spotify-api, and dotenv packages are required to run this application. This application also requires API keys for Spotify, omdb, and SeatGeek.
+Node.js and MySQL are required to run this application locally. 
 
 ### Spotify API key
 
@@ -38,31 +37,77 @@ Node.js and moment, axios, node-spotify-api, and dotenv packages are required to
 
    * These keys can be stored in your .env and accessed by your keys.js file. 
 
-### SeatGeek API key
-
-* The SeatGeek API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a **client id** and **client secret**:
-
-* Step One: Visit <https://seatgeek.com/account/develop>
-
-* Step Two: Either login to your existing SeatGeek account or create a new one (a free account is fine) and log in.
-
-* Step Three: Once logged in, navigate to <https://seatgeek.com/account/develop> to register a new application to be used with the SeatGeek API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
-
-* Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the SeatGeek API.
-
-* These keys can be stored in your .env and accessed by your keys.js file. 
-
-### Open Movie Database API Key
-
-* Procure an omdb API key as well. 
-
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/dayadam/liri-app`
+- Clone this repo to your local machine using `https://github.com/pierceforfears/game-changer`
 
 ---
 
 ## Installation
+
+### MySQL Server Installation Guide (Windows)
+
+* Head to <https://dev.mysql.com/downloads/windows/installer/8.0.html>
+
+* Select Windows (x86, 32-bit), MSI Installer (16.3 M)
+
+* Click “No thanks, just start my download.”
+
+* Navigate to where the file was downloaded and double-click to run the installer. If you get prompted for an update, proceed with the upgrade.
+
+* When you get to the License Agreement screen, Accept the license terms and click “Next”
+
+* Click the “+” next to “MySQL Servers” to expand it, expand “MySQL Server”, expand “MySQL Server 8.0”, and finally select “MySQL Server 8.0.12 – X64” and click the right arrow to add it to the “Products/Features To Be Installed” section.
+
+* Click “Execute”
+
+* When the status says “Complete”, click “Next”.
+
+* At the product configuration screen, click “Next” again.
+
+* Select “Standalone MySQL Server / Classic MySQL Replication” and click “Next”
+
+* For Type and Networking, don’t change anything and click “Next”
+
+* **IMPORTANT**: Make sure to select “Use Legacy Authentication Method (Retain MySQL 5.x Compatibility) and click “Next”
+
+* Create a root password. WARNING. Do not forget this password! After entering a password, click “Next”
+
+* When you get to the Windows Service screen, don’t change anything and click “Next”
+
+* Finally, click “Execute” to apply the changes.
+
+* You can verify that the installation was correct by going to Git Bash and typing “mysql –V”. The path followed by the version should show up.
+
+### MySQL Server Installation Guide (Mac)
+
+* Head to <https://dev.mysql.com/downloads/mysql>
+
+* Scroll down and find macOS 10.14 (x86, 64-bit), DMG Archive and click “Download”.
+
+* Click “No thanks, just start my download.”
+
+* Open the .DMG file and go through the installation process.
+
+* Click “Continue” to get to the Software License Agreement Screen.
+
+* Click “Continue” to agree with the Software License Agreement and click “Agree”.
+
+* Click “Install” and input your password to allow the installer to continue.
+
+* **IMPORTANT**: Make sure to select “Use Legacy Password Encryption” and click “Next”.
+
+* Create a root password. WARNING. Do not forget this password! After entering a password, make sure to check the box to "Start server on installation"
+
+* Click “Finish”.
+
+* You can verify that the installation was correct by going to “System Preferences” and the MySQL icon should show up at the bottom.
+
+* Click the MySQL Icon in "System Preferences". This will bring up a GUI in which you can Start or Stop your server. You can also set it to start server when you turn on your computer.
+
+* Once complete with the MySQL Server install, move onto installing MySQL Workbench below.
+
+### Install Node and packages
 
 - install Node.js from <https://nodejs.org/en/>
 
@@ -73,8 +118,6 @@ $ npm install
 ```
 
 ### Example
-
-[Working Video](https://drive.google.com/file/d/1W_UpSN3yywK9IHTg6eHKV3P0Md6E58KK/view?usp=sharing)
 
 Use node to execute the liri.js file. The first CLI argument will be the app function you want to execute. Available commands are:
 * `concert-this` (SeatGeek AP)
@@ -105,17 +148,23 @@ Pittsburgh, PA 15219
 ## Built With
 
 * [Node.js](https://nodejs.org/en/) - Server runtime environment for JavaScript
-* [Moment](https://www.npmjs.com/package/moment) - Date formatting package
-* [DotEnv](https://www.npmjs.com/package/dotenv) - Package used to access API keys without putting them in source code
-* [Node-Spotify-API](https://www.npmjs.com/package/node-spotify-api) - Package used to access Spotify API
+* [Passport](https://www.npmjs.com/package/passport) - User authentication package
+* [Cheerio](https://www.npmjs.com/package/cheerio) - Package used for web scraping
 * [Axios](https://www.npmjs.com/package/axios) - Package used for server side http requests to APIs 
-* [Spotify API](https://developer.spotify.com/my-applications/#!/) - Search for songs and get back information about them
-* [OMDB API](http://www.omdbapi.com) - Search for movies and get back information about them
-* [SeatGeek API](http://platform.seatgeek.com/#events) - Search for events and get back information about them
+* [Bcryptjs](https://www.npmjs.com/package/bcryptjs) - Package used for hashing and salting passwords for storage
+* [Express](https://www.npmjs.com/package/express) - Fast, unopinionated, minimalist web framework for node
+* [Gamestop](https://www.gamestop.com/) - Search for games get back Gamestop's prices
+* [Xbox One Marketplace](https://www.microsoft.com/en-us/store/b/xboxgames?irgwc=1&OCID=AID2000142_aff_7806_1246483&tduid=(ir__y2f3fvhr2gkft0wb2jy9q0nuau2xlygm39r3jqym00)(7806)(1246483)(%28f061e83b8ce3c1a776b48af68ae760b7%29%2881561%29%28686431%29%28at106140_a107739_m12_p12460_cUS%29%28%29)(f061e83b8ce3c1a776b48af68ae760b7)&irclickid=_y2f3fvhr2gkft0wb2jy9q0nuau2xlygm39r3jqym00) - Search for games get back the Xbox One Marketplace's prices
+* [MySQL](https://www.mysql.com/products/community/) - Open-source relational database
+* [Sequelize](https://www.npmjs.com/package/sequelize) - Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. 
+* [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+
 
 ## Authors
 
-* **Adam Day** - *Initial work* - [Adam Day](https://github.com/dayadam)
+* **Adam Day** - *Models* - [Adam Day](https://github.com/dayadam)
+* **Triston Tetley** - *Controllers* - [Triston Tetley](https://github.com/tristontetley)
+* **Robert Pierce** - *Views* - [Robert Pierce](https://github.com/pierceforfears)
 
 ## Acknowledgments
 

@@ -21,21 +21,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Prerequisites
 
-Node.js and MySQL are required to run this application locally. 
-
-### Spotify API key
-
-   * The Spotify API requires you sign up as a developer to generate the necessary credentials. You can follow these steps in order to generate a **client id** and **client secret**:
-
-   * Step One: Visit <https://developer.spotify.com/my-applications/#!/>
-
-   * Step Two: Either login to your existing Spotify account or create a new one (a free account is fine) and log in.
-
-   * Step Three: Once logged in, navigate to <https://developer.spotify.com/my-applications/#!/applications/create> to register a new application to be used with the Spotify API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
-
-   * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
-
-   * These keys can be stored in your .env and accessed by your keys.js file. 
+Node.js and MySQL are required to run this application locally.  
 
 ### Clone
 
@@ -105,8 +91,6 @@ Node.js and MySQL are required to run this application locally.
 
 * Click the MySQL Icon in "System Preferences". This will bring up a GUI in which you can Start or Stop your server. You can also set it to start server when you turn on your computer.
 
-* Once complete with the MySQL Server install, move onto installing MySQL Workbench below.
-
 ### Install Node and packages
 
 - install Node.js from <https://nodejs.org/en/>
@@ -117,33 +101,17 @@ Node.js and MySQL are required to run this application locally.
 $ npm install
 ```
 
+To run the database connection locally, a user could install the dot-env package and create a .env file in the root folder. Here, create an environmental variable as `LOCAL_DB=mysql://root:<YOUR_PASSWORD>@localhost:3306/game_changer_db`, with `<YOUR_PASSWORD>` your password to your local database.
+
 ### Example
 
-Use node to execute the liri.js file. The first CLI argument will be the app function you want to execute. Available commands are:
-* `concert-this` (SeatGeek AP)
-* `spotify-this-song` (Spotify API)
-* `movie-this` (OMDB API)
-* `do-what-it-says` (This will execute whichever command and search argument is saved in the random.txt file)
-
-The second CLI argument will be the artist, song, or movie you are searching. 
+Run npm start to start both the application's server and client side. 
 
 ```shell
-$ node liri.js concert-this Elton John
+$ npm start
 ```
 
-For `concert-this`, liri will respond with:
-* Name of the venue
-* Venue location
-* Date of the Event
-
-Continuing the earlier example, this is the liri output: 
-
-```shell
-$ node liri.js concert-this Elton John
-PPG Paints Arena
-Pittsburgh, PA 15219
-11/13/2019
-```
+The user can interact with the GUI as necessary. 
 
 ## Built With
 
@@ -158,7 +126,6 @@ Pittsburgh, PA 15219
 * [MySQL](https://www.mysql.com/products/community/) - Open-source relational database
 * [Sequelize](https://www.npmjs.com/package/sequelize) - Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. 
 * [React](https://reactjs.org/) - A JavaScript library for building user interfaces
-
 
 ## Authors
 
